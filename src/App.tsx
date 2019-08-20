@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
+import Plots from './components/Plots';
 import { randomClient } from './entities/Client';
 import { listToArray } from './entities/LinkedList';
 import { addClient, initSimulation } from './entities/Simulation';
@@ -34,7 +35,9 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <MainWrapper />
+      <MainWrapper>
+        <Plots />
+      </MainWrapper>
     </>
   );
 };

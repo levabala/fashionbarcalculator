@@ -14,7 +14,8 @@
     "react-scripts": "3.1.1",
     "styled-components": "^4.3.2",
     "typescript": "^3.5.3",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "victory": "^32.3.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/inherits": "^0.0.30",
     "@types/styled-components": "^4.1.18",
+    "@types/victory": "^31.0.21",
     "tslint-config-prettier": "^1.18.0",
     "tslint-immutable": "^6.0.1",
     "tslint-react": "^4.0.0"
