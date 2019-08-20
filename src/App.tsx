@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, { createGlobalStyle } from 'styled-components';
+
+import { randomClient } from './entities/Client';
+import { listToArray } from './entities/LinkedList';
+import { addClient, initSimulation } from './entities/Simulation';
+import { randomThing, thingArrayToMap } from './entities/Thing';
+
+const GlobalStyle = createGlobalStyle`
+	body {  
+		color: whitesmoke;
+	}
+`;
+
+const MainWrapper = styled.div`
+  background: darkgreen;
+`;
+
+const simulation = initSimulation(
+  {
+    maxThingsPerClient: 2,
+    sendingCost: 6,
+    things: thingArrayToMap(new Array(5).fill(null).map(() => randomThing()))
+  },
+  new Array(2).fill(null).map(() => randomClient())
+);
+
+const s1 = addClient(simulation, randomClient(), new Date());
+const s2 = addClient(s1, randomClient(), new Date());
+
+console.log(listToArray(s2.eventChain));
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <MainWrapper />
+    </>
   );
-}
+};
 
 export default App;
