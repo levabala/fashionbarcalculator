@@ -9,6 +9,7 @@ export enum ThingState {
 export interface Thing {
   id: string;
   state: ThingState;
+  amortization: number;
   stolenDate?: Date;
   clientId?: string;
 }
@@ -21,6 +22,7 @@ export function thingArrayToMap(things: Thing[]): ThingMap {
 
 export function randomThing(): Thing {
   return {
+    amortization: 0,
     id: uuid.v4(),
     state: ThingState.Warehouse
   };

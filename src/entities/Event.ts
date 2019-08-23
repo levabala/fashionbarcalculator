@@ -14,7 +14,7 @@ export interface ThingLostEvent extends RootEvent {
 }
 
 export interface ThingRequestedEvent extends RootEvent {
-  requesterId: string;
+  clientId: string;
   thingId: string;
   kind: "ThingRequestedEvent";
 }
@@ -31,3 +31,13 @@ export type Event =
   | ThingReturnedEvent
   | ThingLostEvent
   | RootEvent;
+
+export type RegularEvent =
+  | ClientRegisterEvent
+  | ThingRequestedEvent
+  | ThingReturnedEvent
+  | ThingLostEvent;
+
+export function isRootEvent(event: Event): event is RootEvent {
+  return !("kind" in event);
+}

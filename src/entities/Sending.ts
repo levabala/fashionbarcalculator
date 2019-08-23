@@ -1,7 +1,6 @@
-import { Thing } from './Thing';
-
 export interface Sending {
-  thing: Thing;
+  id: string;
+  thingId: string;
   dispatch: Date;
   arrive?: Date;
   cost: number;

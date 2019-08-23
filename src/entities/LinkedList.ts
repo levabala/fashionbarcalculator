@@ -3,6 +3,8 @@ export interface LinkedListItem {
   next?: LinkedListItem;
 }
 
+export type NotLinkedListItem<T> = Omit<T, "previous" | "next">;
+
 export interface LinkedListItemHead extends LinkedListItem {
   previous: LinkedListItem;
 }
@@ -19,13 +21,13 @@ export interface LinkedListItemPreTail extends LinkedListItem {
   previous: LinkedListItemTail;
 }
 
-export interface LinkedList<T> {
+export interface LinkedList<T extends object> {
   head: T & LinkedListItemHead;
   tail: (T & LinkedListItemTail) | LinkedListItemTail;
   size: number;
 }
 
-export function appendItemToList<T>(
+export function appendItemToList<T extends object>(
   list: LinkedList<T>,
   item: T
 ): LinkedList<T> {
@@ -47,7 +49,7 @@ export function appendItemToList<T>(
   };
 }
 
-export function prependItemToList<T>(
+export function prependItemToList<T extends object>(
   list: LinkedList<T>,
   item: T
 ): LinkedList<T> {
@@ -69,7 +71,7 @@ export function prependItemToList<T>(
   };
 }
 
-export function initList<T>(firstValue: T): LinkedList<T> {
+export function initList<T extends object>(firstValue: T): LinkedList<T> {
   const tailEmpty = {};
 
   const head = {
@@ -90,7 +92,9 @@ export function initList<T>(firstValue: T): LinkedList<T> {
   };
 }
 
-export function listToArray<T>(list: LinkedList<T>): T[] {
+export function listToArray<T extends object>(
+  list: LinkedList<T>
+): Array<T & LinkedListItem> {
   return new Array(list.size)
     .fill(null)
     .reduce((acc: Array<T & LinkedListItem>, _, i) => {
@@ -99,4 +103,11 @@ export function listToArray<T>(list: LinkedList<T>): T[] {
 
       return [...acc, next];
     }, []);
+}
+
+export function extractItemData<T extends object>(
+  item: T & LinkedListItem
+): NotLinkedListItem<T> {
+  const { previous, next, ...itemData } = item;
+  return itemData;
 }
